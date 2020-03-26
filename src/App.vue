@@ -1,16 +1,18 @@
 <template>
   <div id="app">
     <Navbar />
+    <CreateScheduleModal />
     <router-view />
   </div>
 </template>
 
 <script>
 import Navbar from "./components/Navbar";
+import CreateScheduleModal from "./components/CreateScheduleModal";
 
 export default {
   name: "App",
-  components: { Navbar }
+  components: { Navbar, CreateScheduleModal }
 };
 </script>
 

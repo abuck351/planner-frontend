@@ -21,7 +21,13 @@
           >
           <b-nav-item><router-link to="/about">About</router-link></b-nav-item>
         </b-navbar-nav>
-        <b-navbar-nav class="ml-auto"><ScheduleLoader /></b-navbar-nav>
+        <!-- Right aligned elements -->
+        <b-navbar-nav class="ml-auto"
+          ><ScheduleLoader />
+          <b-button v-b-modal.create-schedule-modal class="ml-2"
+            >Create</b-button
+          ></b-navbar-nav
+        >
       </b-collapse>
     </b-navbar>
   </nav>
@@ -33,16 +39,19 @@ import ScheduleLoader from "./ScheduleLoader";
 export default { name: "Navbar", components: { ScheduleLoader } };
 </script>
 
-<style>
+<style lang="scss">
 nav a {
   color: white;
-}
+  margin: 5px 0;
+  padding: 10px;
+  border-radius: 5px;
+  transition: 0.3s;
 
-nav a:hover {
-  color: white;
-}
-
-.router-link-exact-active {
-  text-decoration: underline;
+  .router-link-exact-active,
+  :hover {
+    color: white;
+    text-decoration: none;
+    background: #17a2b8;
+  }
 }
 </style>
