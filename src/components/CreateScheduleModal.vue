@@ -5,6 +5,8 @@
     title="Create New Schedule"
     ok-title="Create"
     @ok="handleOk"
+    @show="resetModal"
+    @hidden="resetModal"
   >
     <b-form ref="form" @submit.stop.prevent="handleSubmit">
       <b-form-group
@@ -36,6 +38,7 @@
 
 <script>
 import { mapActions } from "vuex";
+import toast from "@/utils/toast";
 
 export default {
   name: "CreateScheduleModal",
@@ -74,7 +77,18 @@ export default {
       }
 
       // Actually submit the data
-      this.createPlan({ name: this.name, term: this.term });
+      this.createPlan({ name: this.name, term: this.term }).then(response => {
+        if (response.status === 201) {
+          toast.call(
+            this,
+            response.data.message,
+            `Plan named ${response.data.plan.name} for the ${response.data.plan.term} term`,
+            "success"
+          );
+        } else {
+          toast.call(this, "Error", response.data.message, "danger");
+        }
+      });
 
       // Hide the modal manually
       this.$nextTick(() => {

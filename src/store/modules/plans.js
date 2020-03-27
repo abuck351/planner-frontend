@@ -14,17 +14,18 @@ const getters = {
 
 const actions = {
   async createPlan({ commit }, plan) {
-    // console.log(
-    //   process.env.VUE_APP_API_BASE_URL + `/plans/${plan.na}?term=${term}`
-    // );
-    const response = await api.post(`/plans/${plan.name}?term=${plan.term}`);
-    console.log("HELLO", response);
-    commit("setPlan", response.data);
+    try {
+      const response = await api.post(`/plans/${plan.name}?term=${plan.term}`);
+      commit("setPlan", response.data.plan);
+      return response;
+    } catch (err) {
+      return err.response;
+    }
   }
 };
 
 const mutations = {
-  setPlan: (state, plan) => (this.plan = plan)
+  setPlan: (state, plan) => (state.plan = plan)
 };
 
 export default {
