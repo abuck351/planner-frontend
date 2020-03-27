@@ -11,21 +11,40 @@
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
-          <b-nav-item
-            ><router-link to="/" class="nav-item"
-              >Schedule</router-link
-            ></b-nav-item
+          <b-button
+            to="/"
+            variant="primary"
+            class="mx-1"
+            exact
+            active-class="active"
+            ><i class="fas fa-calendar-alt"></i> Schedule</b-button
           >
-          <b-nav-item
-            ><router-link to="/search">Search</router-link></b-nav-item
+          <b-button
+            to="/search"
+            variant="primary"
+            class="mx-1"
+            active-class="active"
+            ><i class="fas fa-search"></i> Search</b-button
           >
-          <b-nav-item><router-link to="/about">About</router-link></b-nav-item>
+          <b-button
+            to="/about"
+            variant="primary"
+            class="mx-1"
+            active-class="active"
+            ><i class="fas fa-info-circle"></i> About</b-button
+          >
         </b-navbar-nav>
+
         <!-- Right aligned elements -->
-        <b-navbar-nav class="ml-auto"
-          ><ScheduleLoader />
-          <b-button v-b-modal.create-schedule-modal class="ml-2"
-            >Create</b-button
+        <b-navbar-nav class="ml-auto">
+          <b-button
+            v-b-modal.create-schedule-modal
+            class="mx-1"
+            variant="primary"
+            ><i class="fas fa-plus-square"></i> Create</b-button
+          >
+          <b-button v-b-modal.load-schedule-modal class="mx-1" variant="primary"
+            ><i class="fas fa-cloud-download-alt"></i> Load</b-button
           ></b-navbar-nav
         >
       </b-collapse>
@@ -34,24 +53,5 @@
 </template>
 
 <script>
-import ScheduleLoader from "./ScheduleLoader";
-
-export default { name: "Navbar", components: { ScheduleLoader } };
+export default { name: "Navbar" };
 </script>
-
-<style lang="scss">
-nav a {
-  color: white;
-  margin: 5px 0;
-  padding: 10px;
-  border-radius: 5px;
-  transition: 0.3s;
-
-  .router-link-exact-active,
-  :hover {
-    color: white;
-    text-decoration: none;
-    background: #17a2b8;
-  }
-}
-</style>
