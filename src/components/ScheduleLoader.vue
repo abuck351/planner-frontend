@@ -1,6 +1,8 @@
 <template>
   <b-input-group size="md" prepend="@">
-    <b-form-input placeholder="panteater"></b-form-input>
+    <b-form-input
+      :placeholder="currentPlan ? currentPlan.name : 'panteater'"
+    ></b-form-input>
     <b-input-group-append>
       <b-button variant="info">Load</b-button>
     </b-input-group-append>
@@ -8,7 +10,12 @@
 </template>
 
 <script>
-export default { name: "ScheduleLoader" };
+import { mapGetters } from "vuex";
+
+export default {
+  name: "ScheduleLoader",
+  computed: mapGetters(["currentPlan"])
+};
 </script>
 
 <style></style>

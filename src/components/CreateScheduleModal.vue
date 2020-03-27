@@ -35,6 +35,8 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   name: "CreateScheduleModal",
   data() {
@@ -51,9 +53,9 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["createPlan"]),
     checkFormValidity() {
       const valid = this.$refs.form.checkValidity();
-      console.log(valid);
       this.nameState = valid;
       return valid;
     },
@@ -72,6 +74,7 @@ export default {
       }
 
       // Actually submit the data
+      this.createPlan({ name: this.name, term: this.term });
 
       // Hide the modal manually
       this.$nextTick(() => {
