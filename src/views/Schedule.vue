@@ -1,6 +1,9 @@
 <template>
   <b-container class="p-4" fluid>
-    <!-- <h1>{{ plan.name }} for {{ plan.term }}</h1> -->
+    <h1 v-if="currentPlan">
+      {{ currentPlan.name }}'s schedule for {{ currentPlan.term }}
+    </h1>
+    <h1 v-else>Please load or create a schedule</h1>
     <FullCalendar
       id="schedule"
       default-view="timeGridWeek"
@@ -24,6 +27,7 @@
 <script>
 import FullCalendar from "@fullcalendar/vue";
 import timeGridPlugin from "@fullcalendar/timegrid";
+import { mapGetters } from "vuex";
 
 export default {
   name: "Schedule",
@@ -33,6 +37,7 @@ export default {
       calendarPlugins: [timeGridPlugin]
     };
   },
+  computed: mapGetters(["currentPlan"]),
   methods: {
     onEventClicked(info) {
       console.log("Event: " + info.event.title);
