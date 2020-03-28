@@ -58,4 +58,8 @@ export default {
 <style lang="scss">
 @import "~@fullcalendar/core/main.css";
 @import "~@fullcalendar/timegrid/main.css";
+
+.fc-today {
+  background-color: inherit !important;
+}
 </style>
