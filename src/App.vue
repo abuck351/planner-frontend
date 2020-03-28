@@ -2,6 +2,7 @@
   <div id="app">
     <Navbar />
     <CreateScheduleModal />
+    <LoadScheduleModal />
     <router-view />
   </div>
 </template>
@@ -9,10 +10,11 @@
 <script>
 import Navbar from "./components/Navbar";
 import CreateScheduleModal from "./components/CreateScheduleModal";
+import LoadScheduleModal from "./components/LoadScheduleModal";
 
 export default {
   name: "App",
-  components: { Navbar, CreateScheduleModal }
+  components: { Navbar, CreateScheduleModal, LoadScheduleModal }
 };
 </script>
 

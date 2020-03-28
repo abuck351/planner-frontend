@@ -13,13 +13,38 @@ const getters = {
 };
 
 const actions = {
-  async createPlan({ commit }, plan) {
+  async createPlan({ commit }, planData) {
     try {
-      const response = await api.post(`/plans/${plan.name}?term=${plan.term}`);
-      commit("setPlan", response.data.plan);
-      return response;
+      const response = await api.post(
+        `/plans/${planData.name}?term=${planData.term}`
+      );
+      const plan = response.data.plan;
+      commit("setPlan", plan);
+      return {
+        status: response.status,
+        message: response.data.message,
+        plan
+      };
     } catch (err) {
-      return err.response;
+      return {
+        status: err.response.status,
+        message: err.response.data.message
+      };
+    }
+  },
+  async loadPlan({ commit }, planData) {
+    try {
+      const response = await api.get(
+        `/plans/${planData.name}?term=${planData.term}`
+      );
+      const plan = response.data.plans[0];
+      commit("setPlan", plan);
+      return { status: response.status, message: response.data.message, plan };
+    } catch (err) {
+      return {
+        status: err.response.status,
+        message: err.response.data.message
+      };
     }
   }
 };

@@ -1,21 +1,20 @@
 <template>
   <b-modal
-    id="create-schedule-modal"
+    id="load-schedule-modal"
     ref="modal"
-    title="Create New Schedule"
-    ok-title="Create"
+    title="Load Schedule"
+    ok-title="Load"
     @ok="handleOk"
   >
     <b-form ref="form" @submit.stop.prevent="handleSubmit">
       <b-form-group
-        description="You can use your UCInetID"
         label="Plan Name"
-        label-for="create-plan-name-input"
+        label-for="load-plan-name-input"
         :state="nameState"
         invalid-feedback="A plan name is required"
       >
         <b-form-input
-          id="create-plan-name-input"
+          id="load-plan-name-input"
           type="text"
           v-model="name"
           :state="nameState"
@@ -23,9 +22,9 @@
           placeholder="panteater"
         />
       </b-form-group>
-      <b-form-group label="Term" label-for="create-plan-term-input">
+      <b-form-group label="Term" label-for="load-plan-term-input">
         <b-form-select
-          id="create-plan-term-input"
+          id="load-plan-term-input"
           v-model="term"
           :options="options"
         ></b-form-select>
@@ -39,13 +38,14 @@ import { mapActions } from "vuex";
 import toast from "@/utils/toast";
 
 export default {
-  name: "CreateScheduleModal",
+  name: "LoadScheduleModal",
   data() {
     return {
       name: "",
       nameState: null,
       term: "2020-SPRING",
       options: [
+        { value: "2020-WINTER", text: "2020 Winter Quarter" },
         { value: "2020-SPRING", text: "2020 Spring Quarter" },
         { value: "2020-SUM1", text: "2020 Summer Session 1" },
         { value: "2020-SUM10", text: "Summer 10-Week" },
@@ -55,7 +55,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["createPlan"]),
+    ...mapActions(["loadPlan"]),
     checkFormValidity() {
       const valid = this.$refs.form.checkValidity();
       this.nameState = valid;
@@ -76,11 +76,11 @@ export default {
       }
 
       // Actually submit the data
-      this.createPlan({ name: this.name, term: this.term }).then(res => {
-        if (res.status === 201) {
+      this.loadPlan({ name: this.name, term: this.term }).then(res => {
+        if (res.status === 200) {
           toast.call(
             this,
-            res.message,
+            "Plan successfully loaded",
             `Plan named ${res.plan.name} for the ${res.plan.term} term`,
             "success"
           );
@@ -92,7 +92,7 @@ export default {
 
       // Hide the modal manually
       this.$nextTick(() => {
-        this.$bvModal.hide("create-schedule-modal");
+        this.$bvModal.hide("load-schedule-modal");
       });
     }
   }
