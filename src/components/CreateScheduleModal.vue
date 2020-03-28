@@ -2,7 +2,7 @@
   <b-modal
     id="create-schedule-modal"
     ref="modal"
-    title="Create New Schedule"
+    title="Create a new schedule"
     ok-title="Create"
     @ok="handleOk"
   >

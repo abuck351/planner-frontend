@@ -2,7 +2,7 @@
   <b-modal
     id="load-schedule-modal"
     ref="modal"
-    title="Load Schedule"
+    title="Load an existing schedule"
     ok-title="Load"
     @ok="handleOk"
   >
