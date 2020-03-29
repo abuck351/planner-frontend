@@ -1,6 +1,5 @@
 <template>
   <b-container class="p-4">
-    <CurrentPlanAlert />
     <form ref="form" @submit.stop.prevent="handleSubmit">
       <b-form-group
         description="You can type the department name"
@@ -21,7 +20,12 @@
           </template></b-form-select
         >
       </b-form-group>
-      <b-button type="submit" value="Submit" block variant="primary"
+      <b-button
+        type="submit"
+        value="Submit"
+        block
+        variant="primary"
+        :disabled="!currentPlan"
         ><i class="fas fa-search"></i> Search</b-button
       >
     </form>
@@ -32,12 +36,11 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import CurrentPlanAlert from "@/components/CurrentPlanAlert";
 import SearchResults from "@/components/SearchResults";
 
 export default {
   name: "Search",
-  components: { CurrentPlanAlert, SearchResults },
+  components: { SearchResults },
   data() {
     return {
       department: null,

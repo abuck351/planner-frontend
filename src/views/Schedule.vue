@@ -1,6 +1,5 @@
 <template>
   <b-container class="p-4" fluid>
-    <CurrentPlanAlert />
     <FullCalendar
       id="schedule"
       default-view="timeGridWeek"
@@ -25,11 +24,10 @@
 import FullCalendar from "@fullcalendar/vue";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import { mapGetters } from "vuex";
-import CurrentPlanAlert from "@/components/CurrentPlanAlert";
 
 export default {
   name: "Schedule",
-  components: { FullCalendar, CurrentPlanAlert },
+  components: { FullCalendar },
   data() {
     return {
       calendarPlugins: [timeGridPlugin]

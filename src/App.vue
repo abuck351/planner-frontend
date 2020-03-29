@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <Navbar />
+    <CurrentPlanAlert />
     <CreateScheduleModal />
     <LoadScheduleModal />
     <router-view />
@@ -9,12 +10,18 @@
 
 <script>
 import Navbar from "./components/Navbar";
+import CurrentPlanAlert from "./components/CurrentPlanAlert";
 import CreateScheduleModal from "./components/CreateScheduleModal";
 import LoadScheduleModal from "./components/LoadScheduleModal";
 
 export default {
   name: "App",
-  components: { Navbar, CreateScheduleModal, LoadScheduleModal }
+  components: {
+    Navbar,
+    CurrentPlanAlert,
+    CreateScheduleModal,
+    LoadScheduleModal
+  }
 };
 </script>
 
