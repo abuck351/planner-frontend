@@ -1,8 +1,8 @@
 <template>
   <b-button
     block
-    :variant="true ? 'outline-secondary' : 'success'"
-    :disabled="false"
+    :variant="courseAdded ? 'success' : 'outline-secondary'"
+    :disabled="courseAdded"
   >
     <b-row class="py-2">
       <b-col cols="2">{{ section.code }}</b-col>
@@ -21,11 +21,24 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import EnrollmentBar from "./EnrollmentBar";
 
 export default {
   name: "SectionInfo",
   components: { EnrollmentBar },
-  props: ["section"]
+  props: ["section"],
+  computed: {
+    ...mapGetters(["currentPlan"]),
+    courseAdded() {
+      if (this.currentPlan) {
+        return this.currentPlan.courses.some(
+          course => course.code === this.section.code
+        );
+      } else {
+        return false;
+      }
+    }
+  }
 };
 </script>
