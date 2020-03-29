@@ -1,5 +1,5 @@
 <template>
-  <b-container class="p-4" fluid>
+  <b-container class="p-4">
     <CurrentPlanAlert />
     <form ref="form" @submit.stop.prevent="handleSubmit">
       <b-form-group
@@ -25,16 +25,19 @@
         ><i class="fas fa-search"></i> Search</b-button
       >
     </form>
+    <hr />
+    <SearchResults v-if="allResults.length > 0" />
   </b-container>
 </template>
 
 <script>
 import { mapGetters, mapActions } from "vuex";
 import CurrentPlanAlert from "@/components/CurrentPlanAlert";
+import SearchResults from "@/components/SearchResults";
 
 export default {
   name: "Search",
-  components: { CurrentPlanAlert },
+  components: { CurrentPlanAlert, SearchResults },
   data() {
     return {
       department: null,
@@ -42,10 +45,10 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["currentPlan", "allDeptsAsSelect"])
+    ...mapGetters(["currentPlan", "allDeptsAsSelect", "allResults"])
   },
   methods: {
-    ...mapActions(["loadAllDepts"]),
+    ...mapActions(["loadAllDepts", "search"]),
     checkFormValidity() {
       const valid = this.$refs.form.checkValidity();
       this.departmentState = valid;
@@ -57,7 +60,11 @@ export default {
         return;
       }
 
-      console.log("SEARCH");
+      const searchParams = {
+        term: this.currentPlan.term,
+        department: this.department
+      };
+      this.search(searchParams);
 
       // Hide the modal manually
       this.$nextTick(() => {
