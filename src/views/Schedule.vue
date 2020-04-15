@@ -3,7 +3,7 @@
     <FullCalendar
       id="schedule"
       default-view="timeGridWeek"
-      all-day-text="Online"
+      all-day-text="Online/TBA"
       min-time="06:00:00"
       height="auto"
       :header="{
@@ -14,7 +14,7 @@
       :weekends="false"
       :column-header-format="{ weekday: 'short' }"
       :plugins="calendarPlugins"
-      :events="events"
+      :events="courseEvents"
       @eventClick="onEventClicked"
     />
   </b-container>
@@ -34,7 +34,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["currentPlan"])
+    ...mapGetters(["currentPlan", "courseEvents"])
   },
   methods: {
     onEventClicked(info) {
