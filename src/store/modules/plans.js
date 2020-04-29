@@ -34,15 +34,17 @@ const getters = {
 
     if (state.plan && state.plan.courses) {
       for (const course of state.plan.courses) {
+        // TODO: Display Online/TBA courses in another region
+        if (course.daysOfWeek === "TBA") continue;
+
         events.push({
           groupId: course.code,
           title: course.title,
           daysOfWeek: parseDaysOfWeek(course.days),
           startTime: course.start_time,
           endTime: course.end_time,
-          allDay: course.start_time === null,
-          duration: "01:00",
           color: randomColor(),
+          course,
         });
       }
     }
