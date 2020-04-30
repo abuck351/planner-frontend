@@ -1,10 +1,11 @@
 <template>
   <b-container class="p-4" fluid>
-    <CourseModal :event="selectedEvent" />
+    <CourseModal :course="selectedCourse" />
     <FullCalendar
       id="schedule"
       default-view="timeGridWeek"
       min-time="06:00:00"
+      event-border-color="white"
       height="auto"
       :header="{
         left: '',
@@ -33,7 +34,7 @@ export default {
   data() {
     return {
       calendarPlugins: [timeGridPlugin],
-      selectedEvent: { extendedProps: { course: {} } },
+      selectedCourse: {},
     };
   },
   computed: {
@@ -41,7 +42,11 @@ export default {
   },
   methods: {
     onEventClicked(info) {
-      this.selectedEvent = info.event;
+      this.selectedCourse = {
+        start: info.event.start,
+        end: info.event.end,
+        ...info.event.extendedProps.course,
+      };
       this.$root.$emit("bv::show::modal", "course-modal");
     },
   },

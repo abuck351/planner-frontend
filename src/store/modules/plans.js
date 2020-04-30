@@ -1,5 +1,6 @@
 import axios from "axios";
-import randomColor from "randomcolor";
+import randomColor from "@/utils/colors";
+import { formatTitle } from "@/utils/formatting";
 
 function parseDaysOfWeek(daysStr) {
   let daysMap = new Map([
@@ -37,9 +38,11 @@ const getters = {
         // TODO: Display Online/TBA courses in another region
         if (course.daysOfWeek === "TBA") continue;
 
+        const formattedTitle = formatTitle(course.title);
+
         events.push({
           groupId: course.code,
-          title: course.title,
+          title: `${course.section_type} ${course.section_name} ${formattedTitle.dept} ${formattedTitle.num} (${course.code})`,
           daysOfWeek: parseDaysOfWeek(course.days),
           startTime: course.start_time,
           endTime: course.end_time,
