@@ -4,7 +4,9 @@
     <CurrentPlanAlert />
     <CreateScheduleModal />
     <LoadScheduleModal />
-    <router-view />
+    <AboutModal />
+    <Schedule id="schedule" />
+    <Search />
   </div>
 </template>
 
@@ -13,6 +15,9 @@ import Navbar from "./components/Navbar";
 import CurrentPlanAlert from "./components/CurrentPlanAlert";
 import CreateScheduleModal from "./components/CreateScheduleModal";
 import LoadScheduleModal from "./components/LoadScheduleModal";
+import AboutModal from "./components/AboutModal";
+import Schedule from "./components/Schedule";
+import Search from "./components/Search";
 
 export default {
   name: "App",
@@ -20,12 +25,19 @@ export default {
     Navbar,
     CurrentPlanAlert,
     CreateScheduleModal,
-    LoadScheduleModal
-  }
+    LoadScheduleModal,
+    AboutModal,
+    Schedule,
+    Search,
+  },
 };
 </script>
 
 <style>
+html {
+  scroll-behavior: smooth;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -41,9 +53,5 @@ export default {
 #nav a {
   font-weight: bold;
   color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
 }
 </style>

@@ -1,6 +1,7 @@
 <template>
   <b-container class="p-4">
-    <form ref="form" @submit.stop.prevent="handleSubmit">
+    <h1 id="search-header"><i class="fas fa-search"></i> Search</h1>
+    <form ref="searchForm" @submit.stop.prevent="handleSubmit">
       <b-form-group
         description="You can type the department name"
         label="Department"
@@ -31,6 +32,9 @@
     </form>
     <hr />
     <SearchResults v-if="allResults.length > 0" />
+    <b-button href="#schedule" class="mt-4"
+      ><i class="fas fa-calendar-alt"></i> Back to schedule</b-button
+    >
   </b-container>
 </template>
 
@@ -44,16 +48,16 @@ export default {
   data() {
     return {
       department: null,
-      departmentState: null
+      departmentState: null,
     };
   },
   computed: {
-    ...mapGetters(["currentPlan", "allDeptsAsSelect", "allResults"])
+    ...mapGetters(["currentPlan", "allDeptsAsSelect", "allResults"]),
   },
   methods: {
     ...mapActions(["loadAllDepts", "search"]),
     checkFormValidity() {
-      const valid = this.$refs.form.checkValidity();
+      const valid = this.$refs.searchForm.checkValidity();
       this.departmentState = valid;
       return valid;
     },
@@ -65,7 +69,7 @@ export default {
 
       const searchParams = {
         term: this.currentPlan.term,
-        department: this.department
+        department: this.department,
       };
       this.search(searchParams);
 
@@ -73,10 +77,10 @@ export default {
       this.$nextTick(() => {
         this.$bvModal.hide("create-schedule-modal");
       });
-    }
+    },
   },
   created() {
     this.loadAllDepts();
-  }
+  },
 };
 </script>

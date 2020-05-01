@@ -30,5 +30,6 @@ export default {
 <style lang="scss" scoped>
 a {
   color: inherit;
+  text-decoration: underline;
 }
 </style>
