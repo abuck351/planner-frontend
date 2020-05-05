@@ -13,19 +13,21 @@
       {{ course.instructor }}
     </p>
     <p><i class="fas fa-building"></i> {{ course.building }}</p>
-    <b-button variant="danger"
-      ><i class="fas fa-trash"></i> Remove Course</b-button
+    <b-button variant="danger" @click="remove"
+      ><i class="fas fa-trash"></i> Remove Section</b-button
     >
   </b-modal>
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
 import { formatRange } from "@fullcalendar/core";
 
 export default {
   name: "CourseModal",
   props: ["course"],
   computed: {
+    ...mapGetters(["currentPlan"]),
     modalTitle: function() {
       return `${this.course.section_type} ${this.course.section_name} ${this.course.title}`;
     },
@@ -37,6 +39,18 @@ export default {
         separator: " to ",
       });
       return `${this.course.days} from ${timeRange}`;
+    },
+  },
+  methods: {
+    ...mapActions(["removeCourse"]),
+    remove() {
+      this.removeCourse({
+        planName: this.currentPlan.name,
+        planTerm: this.currentPlan.term,
+        courseCode: this.course.code,
+      });
+
+      this.$root.$emit("bv::hide::modal", "course-modal");
     },
   },
 };

@@ -20,6 +20,30 @@ function parseDaysOfWeek(daysStr) {
   return days;
 }
 
+async function editCourse(method, commit, planName, planTerm, payload) {
+  try {
+    const apiUrl = `/plans/${planName}/course`;
+    let courseResponse = await method(apiUrl, payload);
+
+    // Reload the plan
+    const loadPlanResponse = await api.get(
+      `/plans/${planName}?term=${planTerm}`
+    );
+    const plan = loadPlanResponse.data.plans[0];
+    commit("setPlan", plan);
+
+    return {
+      status: courseResponse.status,
+      message: courseResponse.data.message,
+    };
+  } catch (err) {
+    return {
+      status: err.response.status,
+      message: err.response.data.message,
+    };
+  }
+}
+
 const api = axios.create({
   baseURL: process.env.VUE_APP_API_BASE_URL,
 });
@@ -92,29 +116,18 @@ const actions = {
     }
   },
   async addCourse({ commit }, { planName, planTerm, courseCode }) {
-    try {
-      const addCourseResponse = await api.post(`/plans/${planName}/course`, {
+    return await editCourse(api.post, commit, planName, planTerm, {
+      term: planTerm,
+      course_code: courseCode,
+    });
+  },
+  async removeCourse({ commit }, { planName, planTerm, courseCode }) {
+    return await editCourse(api.delete, commit, planName, planTerm, {
+      data: {
         term: planTerm,
         course_code: courseCode,
-      });
-
-      // Reload the plan
-      const loadPlanResponse = await api.get(
-        `/plans/${planName}?term=${planTerm}`
-      );
-      const plan = loadPlanResponse.data.plans[0];
-      commit("setPlan", plan);
-
-      return {
-        status: addCourseResponse.status,
-        message: addCourseResponse.data.message,
-      };
-    } catch (err) {
-      return {
-        status: err.response.status,
-        message: err.response.data.message,
-      };
-    }
+      },
+    });
   },
 };
 
