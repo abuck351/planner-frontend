@@ -25,7 +25,11 @@
         />
       </b-form-group>
       <b-form-group label="Term" label-for="load-plan-term-input">
-        <b-form-select id="load-plan-term-input" v-model="term" :options="options"></b-form-select>
+        <b-form-select
+          id="load-plan-term-input"
+          v-model="term"
+          :options="options"
+        ></b-form-select>
       </b-form-group>
     </b-form>
   </b-modal>
@@ -34,6 +38,7 @@
 <script>
 import { mapActions } from "vuex";
 import toast from "@/utils/toast";
+import Cookies from "js-cookie";
 
 export default {
   name: "LoadScheduleModal",
@@ -42,7 +47,7 @@ export default {
       name: "",
       nameState: null,
       term: "2020-FALL",
-      options: [{ value: "2020-FALL", text: "2020 Fall" }]
+      options: [{ value: "2020-FALL", text: "2020 Fall" }],
     };
   },
   methods: {
@@ -63,14 +68,9 @@ export default {
       e.preventDefault();
       this.handleSubmit();
     },
-    handleSubmit() {
-      // Exit when the form isn't valid
-      if (!this.checkFormValidity()) {
-        return;
-      }
-
+    loadPlanAndShowToast(name, term) {
       // Actually submit the data
-      this.loadPlan({ name: this.name, term: this.term }).then(res => {
+      this.loadPlan({ name, term }).then((res) => {
         if (res.status === 200) {
           toast.call(
             this,
@@ -83,13 +83,26 @@ export default {
           toast.call(this, "Error", res.message, "danger");
         }
       });
+    },
+    handleSubmit() {
+      // Exit when the form isn't valid
+      if (!this.checkFormValidity()) {
+        return;
+      }
+
+      this.loadPlanAndShowToast(this.name, this.term);
 
       // Hide the modal manually
       this.$nextTick(() => {
         this.$bvModal.hide("load-schedule-modal");
       });
-    }
-  }
+    },
+  },
+  created: function() {
+    const planName = Cookies.get("planName");
+    const planTerm = Cookies.get("planTerm");
+    if (planName && planTerm) this.loadPlanAndShowToast(planName, planTerm);
+  },
 };
 </script>
 

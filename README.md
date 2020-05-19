@@ -3,7 +3,7 @@
 ## Project setup
 
 ```
-yarn install
+npm install
 ```
 
 Create `.env` file in the root folder like:

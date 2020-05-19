@@ -1,4 +1,5 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 import randomColor from "@/utils/colors";
 import { formatTitle } from "@/utils/formatting";
 
@@ -137,7 +138,11 @@ const actions = {
 };
 
 const mutations = {
-  setPlan: (state, plan) => (state.plan = plan),
+  setPlan: (state, plan) => {
+    Cookies.set("planName", plan.name);
+    Cookies.set("planTerm", plan.term);
+    state.plan = plan;
+  },
   setAddingCourseCode: (state, addingCourseCode) =>
     (state.addingCourseCode = addingCourseCode),
 };
