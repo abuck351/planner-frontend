@@ -1,9 +1,7 @@
 <template>
   <b-container class="p-4">
-    <h1 id="search-header">
-      <i class="fas fa-search"></i> Search
-    </h1>
-    <form ref="searchForm" @submit.stop.prevent="handleSubmit">
+    <h1><i class="fas fa-search"></i> Search</h1>
+    <form ref="searchForm" id="search" @submit.stop.prevent="handleSubmit">
       <b-form-group
         description="You can type the department name"
         label="Department"
@@ -18,7 +16,9 @@
           required
         >
           <template v-slot:first>
-            <b-form-select-option :value="null" disabled>-- Please select a department --</b-form-select-option>
+            <b-form-select-option :value="null" disabled
+              >-- Please select a department --</b-form-select-option
+            >
           </template>
         </b-form-select>
       </b-form-group>
@@ -30,9 +30,7 @@
         :disabled="!currentPlan || isSearching"
       >
         <div v-if="isSearching">Searching...</div>
-        <div v-else>
-          <i class="fas fa-search"></i> Search
-        </div>
+        <div v-else><i class="fas fa-search"></i> Search</div>
       </b-button>
     </form>
     <hr />
@@ -53,7 +51,7 @@ export default {
   data() {
     return {
       department: null,
-      departmentState: null
+      departmentState: null,
     };
   },
   computed: {
@@ -61,8 +59,8 @@ export default {
       "currentPlan",
       "allDeptsAsSelect",
       "allResults",
-      "isSearching"
-    ])
+      "isSearching",
+    ]),
   },
   methods: {
     ...mapActions(["loadAllDepts", "search"]),
@@ -79,13 +77,13 @@ export default {
 
       const searchParams = {
         term: this.currentPlan.term,
-        department: this.department
+        department: this.department,
       };
       this.search(searchParams);
-    }
+    },
   },
   created() {
     this.loadAllDepts();
-  }
+  },
 };
 </script>

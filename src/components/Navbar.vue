@@ -20,7 +20,7 @@
           <b-button v-b-modal.load-schedule-modal class="mx-1" variant="primary"
             ><i class="fas fa-cloud-download-alt"></i> Load</b-button
           >
-          <b-button href="#search-header" class="mx-1" variant="primary"
+          <b-button href="#search" class="mx-1" variant="primary"
             ><i class="fas fa-search"></i> Search</b-button
           >
           <b-button v-b-modal.about-modal class="mx-1" variant="primary"
