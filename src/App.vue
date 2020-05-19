@@ -4,6 +4,7 @@
     <CurrentPlanAlert />
     <CreateScheduleModal />
     <LoadScheduleModal />
+    <ListModal />
     <AboutModal />
     <Schedule id="schedule" />
     <Search />
@@ -15,6 +16,7 @@ import Navbar from "./components/Navbar";
 import CurrentPlanAlert from "./components/CurrentPlanAlert";
 import CreateScheduleModal from "./components/CreateScheduleModal";
 import LoadScheduleModal from "./components/LoadScheduleModal";
+import ListModal from "./components/ListModal";
 import AboutModal from "./components/AboutModal";
 import Schedule from "./components/Schedule";
 import Search from "./components/Search";
@@ -26,10 +28,11 @@ export default {
     CurrentPlanAlert,
     CreateScheduleModal,
     LoadScheduleModal,
+    ListModal,
     AboutModal,
     Schedule,
-    Search,
-  },
+    Search
+  }
 };
 </script>
 
