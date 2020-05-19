@@ -31,6 +31,10 @@
               <i class="fas fa-building"></i>
               {{ course.building }}
             </li>
+            <li v-if="course.restrictions">
+              <i class="fas fa-exclamation-circle"></i>
+              {{course.restrictions}}
+            </li>
           </ul>
         </li>
       </ul>

@@ -1,21 +1,28 @@
 <template>
-  <b-modal
-    id="course-modal"
-    button-size="sm"
-    hide-footer
-    :title="modalTitle"
-    centered
-  >
-    <p><i class="fas fa-th"></i> {{ course.code }}</p>
-    <p><i class="fas fa-clock"></i> {{ daysAndTime }}</p>
+  <b-modal id="course-modal" button-size="sm" hide-footer :title="modalTitle" centered>
+    <p>
+      <i class="fas fa-th"></i>
+      {{ course.code }}
+    </p>
+    <p>
+      <i class="fas fa-clock"></i>
+      {{ daysAndTime }}
+    </p>
     <p>
       <i class="fas fa-chalkboard-teacher"></i>
       {{ course.instructor }}
     </p>
-    <p><i class="fas fa-building"></i> {{ course.building }}</p>
-    <b-button variant="danger" @click="remove"
-      ><i class="fas fa-trash"></i> Remove Section</b-button
-    >
+    <p>
+      <i class="fas fa-building"></i>
+      {{ course.building }}
+    </p>
+    <p v-if="course.restrictions">
+      <i class="fas fa-exclamation-circle"></i>
+      {{course.restrictions}}
+    </p>
+    <b-button variant="danger" @click="remove">
+      <i class="fas fa-trash"></i> Remove Section
+    </b-button>
   </b-modal>
 </template>
 
@@ -36,10 +43,10 @@ export default {
         hour12: true,
         hour: "numeric",
         minute: "2-digit",
-        separator: " to ",
+        separator: " to "
       });
       return `${this.course.days} from ${timeRange}`;
-    },
+    }
   },
   methods: {
     ...mapActions(["removeCourse"]),
@@ -47,11 +54,11 @@ export default {
       this.removeCourse({
         planName: this.currentPlan.name,
         planTerm: this.currentPlan.term,
-        courseCode: this.course.code,
+        courseCode: this.course.code
       });
 
       this.$root.$emit("bv::hide::modal", "course-modal");
-    },
-  },
+    }
+  }
 };
 </script>

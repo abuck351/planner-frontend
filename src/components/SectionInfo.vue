@@ -1,16 +1,35 @@
 <template>
   <b-button
     block
-    :variant="courseAdded ? 'success' : 'outline-secondary'"
+    :variant="courseAdded ? 'info' : 'outline-secondary'"
     :disabled="courseAdded || isAddingCourse"
     @click="add"
   >
-    <b-row class="py-2">
-      <b-col cols="2">{{ section.code }}</b-col>
-      <b-col cols="2">{{ section.section_type }} {{ section.section_name }}</b-col>
-      <b-col>{{ section.instructor }}</b-col>
-      <b-col>{{ section.days }} {{ section.time_display }}</b-col>
-      <b-col cols="2">{{ section.building }}</b-col>
+    <b-row class="mx-auto py-2">
+      <b-col cols="3" md="auto">
+        <i class="fas fa-th"></i>
+        {{ section.code }}
+      </b-col>
+      <b-col cols="3" md="auto">
+        <i class="fas fa-chair"></i>
+        {{ section.section_type }} {{ section.section_name }}
+      </b-col>
+      <b-col cols="6" md="auto">
+        <i class="fas fa-chalkboard-teacher"></i>
+        {{ section.instructor }}
+      </b-col>
+      <b-col cols="6" md="auto">
+        <i class="fas fa-clock"></i>
+        {{ section.days }} {{ section.time_display }}
+      </b-col>
+      <b-col cols="6" md="auto">
+        <i class="fas fa-building"></i>
+        {{ section.building }}
+      </b-col>
+      <b-col cols="12" lg="auto" v-if="section.restrictions">
+        <i class="fas fa-exclamation-circle"></i>
+        {{section.restrictions}}
+      </b-col>
     </b-row>
     <EnrollmentBar :enrolled="section.enrolled" :capacity="section.max_capacity" />
     <b-overlay :show="isAddingCourse" spinner-variant="info" opacity="0.8" no-wrap></b-overlay>
