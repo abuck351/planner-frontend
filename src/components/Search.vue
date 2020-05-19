@@ -1,6 +1,8 @@
 <template>
   <b-container class="p-4">
-    <h1 id="search-header"><i class="fas fa-search"></i> Search</h1>
+    <h1 id="search-header">
+      <i class="fas fa-search"></i> Search
+    </h1>
     <form ref="searchForm" @submit.stop.prevent="handleSubmit">
       <b-form-group
         description="You can type the department name"
@@ -14,27 +16,30 @@
           v-model="department"
           :options="allDeptsAsSelect"
           required
-          ><template v-slot:first>
-            <b-form-select-option :value="null" disabled
-              >-- Please select a department --</b-form-select-option
-            >
-          </template></b-form-select
         >
+          <template v-slot:first>
+            <b-form-select-option :value="null" disabled>-- Please select a department --</b-form-select-option>
+          </template>
+        </b-form-select>
       </b-form-group>
       <b-button
         type="submit"
         value="Submit"
         block
         variant="primary"
-        :disabled="!currentPlan"
-        ><i class="fas fa-search"></i> Search</b-button
+        :disabled="!currentPlan || isSearching"
       >
+        <div v-if="isSearching">Searching...</div>
+        <div v-else>
+          <i class="fas fa-search"></i> Search
+        </div>
+      </b-button>
     </form>
     <hr />
     <SearchResults v-if="allResults.length > 0" />
-    <b-button href="#schedule" class="mt-4"
-      ><i class="fas fa-calendar-alt"></i> Back to schedule</b-button
-    >
+    <b-button href="#schedule" class="mt-4">
+      <i class="fas fa-calendar-alt"></i> Back to schedule
+    </b-button>
   </b-container>
 </template>
 
@@ -48,11 +53,16 @@ export default {
   data() {
     return {
       department: null,
-      departmentState: null,
+      departmentState: null
     };
   },
   computed: {
-    ...mapGetters(["currentPlan", "allDeptsAsSelect", "allResults"]),
+    ...mapGetters([
+      "currentPlan",
+      "allDeptsAsSelect",
+      "allResults",
+      "isSearching"
+    ])
   },
   methods: {
     ...mapActions(["loadAllDepts", "search"]),
@@ -69,18 +79,13 @@ export default {
 
       const searchParams = {
         term: this.currentPlan.term,
-        department: this.department,
+        department: this.department
       };
       this.search(searchParams);
-
-      // Hide the modal manually
-      this.$nextTick(() => {
-        this.$bvModal.hide("create-schedule-modal");
-      });
-    },
+    }
   },
   created() {
     this.loadAllDepts();
-  },
+  }
 };
 </script>

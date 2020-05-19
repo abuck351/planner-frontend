@@ -50,6 +50,7 @@ const api = axios.create({
 
 const state = {
   plan: null,
+  addingCourseCode: null,
 };
 
 const getters = {
@@ -78,6 +79,7 @@ const getters = {
 
     return events;
   },
+  addingCourseCode: (state) => state.addingCourseCode,
 };
 
 const actions = {
@@ -116,10 +118,13 @@ const actions = {
     }
   },
   async addCourse({ commit }, { planName, planTerm, courseCode }) {
-    return await editCourse(api.post, commit, planName, planTerm, {
+    commit("setAddingCourseCode", courseCode);
+    const response = await editCourse(api.post, commit, planName, planTerm, {
       term: planTerm,
       course_code: courseCode,
     });
+    commit("setAddingCourseCode", null);
+    return response;
   },
   async removeCourse({ commit }, { planName, planTerm, courseCode }) {
     return await editCourse(api.delete, commit, planName, planTerm, {
@@ -133,6 +138,8 @@ const actions = {
 
 const mutations = {
   setPlan: (state, plan) => (state.plan = plan),
+  setAddingCourseCode: (state, addingCourseCode) =>
+    (state.addingCourseCode = addingCourseCode),
 };
 
 export default {

@@ -5,6 +5,7 @@
     title="Create a new schedule"
     ok-title="Create"
     @ok="handleOk"
+    @shown="focusPlanNameInput"
   >
     <b-form ref="form" @submit.stop.prevent="handleSubmit">
       <b-form-group
@@ -15,6 +16,7 @@
         invalid-feedback="A plan name is required"
       >
         <b-form-input
+          ref="createPlanNameInput"
           id="create-plan-name-input"
           type="text"
           v-model="name"
@@ -24,11 +26,7 @@
         />
       </b-form-group>
       <b-form-group label="Term" label-for="create-plan-term-input">
-        <b-form-select
-          id="create-plan-term-input"
-          v-model="term"
-          :options="options"
-        ></b-form-select>
+        <b-form-select id="create-plan-term-input" v-model="term" :options="options"></b-form-select>
       </b-form-group>
     </b-form>
   </b-modal>
@@ -44,14 +42,8 @@ export default {
     return {
       name: "",
       nameState: null,
-      term: "2020-SPRING",
-      options: [
-        { value: "2020-SPRING", text: "2020 Spring Quarter" },
-        { value: "2020-SUM1", text: "2020 Summer Session 1" },
-        { value: "2020-SUM10", text: "Summer 10-Week" },
-        { value: "2020-SUMCOM", text: "Summer (COM)" },
-        { value: "2020-SUM2", text: "2020 Summer Session 2" }
-      ]
+      term: "2020-FALL",
+      options: [{ value: "2020-FALL", text: "2020 Fall" }]
     };
   },
   methods: {
@@ -64,6 +56,9 @@ export default {
     resetModal() {
       this.name = "";
       this.nameState = null;
+    },
+    focusPlanNameInput() {
+      this.$refs.createPlanNameInput.focus();
     },
     handleOk(e) {
       e.preventDefault();

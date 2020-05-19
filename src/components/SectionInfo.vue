@@ -2,22 +2,18 @@
   <b-button
     block
     :variant="courseAdded ? 'success' : 'outline-secondary'"
-    :disabled="courseAdded"
+    :disabled="courseAdded || isAddingCourse"
     @click="add"
   >
     <b-row class="py-2">
       <b-col cols="2">{{ section.code }}</b-col>
-      <b-col cols="2"
-        >{{ section.section_type }} {{ section.section_name }}</b-col
-      >
+      <b-col cols="2">{{ section.section_type }} {{ section.section_name }}</b-col>
       <b-col>{{ section.instructor }}</b-col>
       <b-col>{{ section.days }} {{ section.time_display }}</b-col>
       <b-col cols="2">{{ section.building }}</b-col>
     </b-row>
-    <EnrollmentBar
-      :enrolled="section.enrolled"
-      :capacity="section.max_capacity"
-    />
+    <EnrollmentBar :enrolled="section.enrolled" :capacity="section.max_capacity" />
+    <b-overlay :show="isAddingCourse" spinner-variant="info" opacity="0.8" no-wrap></b-overlay>
   </b-button>
 </template>
 
@@ -30,16 +26,19 @@ export default {
   components: { EnrollmentBar },
   props: ["section"],
   computed: {
-    ...mapGetters(["currentPlan"]),
+    ...mapGetters(["currentPlan", "addingCourseCode"]),
     courseAdded() {
       if (this.currentPlan) {
         return this.currentPlan.courses.some(
-          (course) => course.code === this.section.code
+          course => course.code === this.section.code
         );
       } else {
         return false;
       }
     },
+    isAddingCourse() {
+      return this.addingCourseCode === this.section.code;
+    }
   },
   methods: {
     ...mapActions(["addCourse"]),
@@ -47,9 +46,9 @@ export default {
       this.addCourse({
         planName: this.currentPlan.name,
         planTerm: this.currentPlan.term,
-        courseCode: this.section.code,
+        courseCode: this.section.code
       });
-    },
-  },
+    }
+  }
 };
 </script>
