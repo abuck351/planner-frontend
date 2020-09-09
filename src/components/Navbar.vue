@@ -1,7 +1,7 @@
 <template>
   <nav>
     <b-navbar toggleable="sm" type="dark" variant="primary" class="m-1 mb-4 rounded shadow">
-      <b-navbar-brand>Planner</b-navbar-brand>
+      <b-navbar-brand>Zot Planner</b-navbar-brand>
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav>
