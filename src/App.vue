@@ -36,7 +36,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 html {
   scroll-behavior: smooth;
 }
@@ -56,5 +56,10 @@ html {
 #nav a {
   font-weight: bold;
   color: #2c3e50;
+}
+
+a .alert-link {
+  color: inherit;
+  text-decoration: underline;
 }
 </style>

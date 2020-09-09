@@ -1,6 +1,13 @@
 <template>
   <b-container class="p-4">
-    <h1><i class="fas fa-search"></i> Search</h1>
+    <h1>
+      <i class="fas fa-search"></i> Search
+    </h1>
+    <b-alert v-if="!currentPlan" show variant="warning" class="m-4">
+      Must
+      <a class="alert-link" href="#" v-b-modal.create-schedule-modal>create</a> or
+      <a class="alert-link" href="#" v-b-modal.load-schedule-modal>load</a> a schedule in order to search
+    </b-alert>
     <form ref="searchForm" id="search" @submit.stop.prevent="handleSubmit">
       <b-form-group
         description="You can type the department name"
@@ -14,11 +21,10 @@
           v-model="department"
           :options="allDeptsAsSelect"
           required
+          :disabled="!currentPlan || isSearching"
         >
           <template v-slot:first>
-            <b-form-select-option :value="null" disabled
-              >-- Please select a department --</b-form-select-option
-            >
+            <b-form-select-option :value="null" disabled>-- Please select a department --</b-form-select-option>
           </template>
         </b-form-select>
       </b-form-group>
@@ -30,7 +36,9 @@
         :disabled="!currentPlan || isSearching"
       >
         <div v-if="isSearching">Searching...</div>
-        <div v-else><i class="fas fa-search"></i> Search</div>
+        <div v-else>
+          <i class="fas fa-search"></i> Search
+        </div>
       </b-button>
     </form>
     <hr />
