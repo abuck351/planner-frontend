@@ -46,7 +46,7 @@ export default {
     return {
       name: "",
       nameState: null,
-      term: "2020-FALL",
+      term: "2021-WINTER",
       options: [
         { value: "2020-FALL", text: "2020 Fall" },
         { value: "2021-WINTER", text: "2021 Winter" },
