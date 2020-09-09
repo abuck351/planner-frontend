@@ -31,8 +31,8 @@ export default {
     ListModal,
     AboutModal,
     Schedule,
-    Search
-  }
+    Search,
+  },
 };
 </script>
 
