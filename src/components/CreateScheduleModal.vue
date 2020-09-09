@@ -26,7 +26,11 @@
         />
       </b-form-group>
       <b-form-group label="Term" label-for="create-plan-term-input">
-        <b-form-select id="create-plan-term-input" v-model="term" :options="options"></b-form-select>
+        <b-form-select
+          id="create-plan-term-input"
+          v-model="term"
+          :options="options"
+        ></b-form-select>
       </b-form-group>
     </b-form>
   </b-modal>
@@ -43,7 +47,11 @@ export default {
       name: "",
       nameState: null,
       term: "2020-FALL",
-      options: [{ value: "2020-FALL", text: "2020 Fall" }]
+      options: [
+        { value: "2020-FALL", text: "2020 Fall" },
+        { value: "2021-WINTER", text: "2021 Winter" },
+        { value: "2021-SPRING", text: "2021 Spring" },
+      ],
     };
   },
   methods: {
@@ -71,7 +79,7 @@ export default {
       }
 
       // Actually submit the data
-      this.createPlan({ name: this.name, term: this.term }).then(res => {
+      this.createPlan({ name: this.name, term: this.term }).then((res) => {
         if (res.status === 201) {
           toast.call(
             this,
@@ -89,9 +97,7 @@ export default {
       this.$nextTick(() => {
         this.$bvModal.hide("create-schedule-modal");
       });
-    }
-  }
+    },
+  },
 };
 </script>
-
-<style></style>

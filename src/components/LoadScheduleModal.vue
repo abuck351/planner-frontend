@@ -47,7 +47,11 @@ export default {
       name: "",
       nameState: null,
       term: "2020-FALL",
-      options: [{ value: "2020-FALL", text: "2020 Fall" }],
+      options: [
+        { value: "2020-FALL", text: "2020 Fall" },
+        { value: "2021-WINTER", text: "2021 Winter" },
+        { value: "2021-SPRING", text: "2021 Spring" },
+      ],
     };
   },
   methods: {
